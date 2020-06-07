@@ -1,5 +1,0 @@
-package acme
-
-class TestConsumer {
-
-}
