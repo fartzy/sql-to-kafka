@@ -1,0 +1,21 @@
+{
+	"type": "record",
+	"name": "idm_clnt_plan_yr",
+	"fields": [
+		{ "name": "clnt_acct_num", "type": "string" },
+		{ "name": "clnt_cif_src_cd", "type": "string" },
+		{ "name": "ben_cls_num", "type": "string" },
+		{ "name": "ben_plan_num", "type": "string" },
+		{ "name": "ben_plan_vrtn_id", "type": "string" },
+		{ "name": "prodt_grp_typ_cd", "type": "string" },
+		{ "name": "ben_plan_eff_dt", "type": "string" },
+		{ "name": "plan_yr_begin_dt", "type": "string" },
+		{ "name": "plan_yr_cd", "type": "string" },
+		{ "name": "plan_yr_end_dt", "type": "string" },
+		{ "name": "cif_act_cd", "type": "string" },
+		{ "name": "cif_load_dt", "type": "string" },
+		{ "name": "cif_btch_num", "type": "string" },
+		{ "name": "key_drvd_id", "type": "string" },
+		{ "name": "data_drvd_id", "type": "string" }
+	]
+}

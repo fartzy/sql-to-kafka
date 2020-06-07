@@ -1,0 +1,44 @@
+{
+  "pipeline": {
+    "name": "Service Categories Actions",
+    "author": "I Had a Stream Team",
+    "description": "Pipeline for DXS service categories and benefit details data",
+    "actions": [
+      {
+        "name": "skyline-bensvcsrcprodt-bensvcctgryxref",
+        "image": "quay.sys.acme.com/dxs/skyline-generic-join-action:latest",
+        "kind": "docker",
+        "input_topic":"sl_ben_svc_src_prodt",
+        "output_topic":"sl_bensvcsrcprodt_bensvcctgryxref",
+        "error_topic": "skyline_bd_err",
+        "key_columns": "none",
+        "environment":[
+          {"name": "PRINCIPAL", "value": "svtdxshad2p"},
+          {"name": "DOMAIN", "value": "SILVER.COM"},
+          {"name": "ENV", "value": "int"},
+          {"name": "KVNO", "value": "1"},
+          {"name": "KERBEROS_PASS", "value": "Spr1NG18#Spr1NG18#Spr1NG"},
+          {"name": "CONFIG_RAW_GIT_FILEPATH", "value": "http://git.sys.acme.com/dxs/coverage-and-benefits/join-configs/blob/develop/benefitdetails/svcCtgry_prodt_xref.conf"}
+        ]
+      },
+      {
+          "name": "skyline-bensvcsrcprodt-bensvcctgryxref_benctgry",
+          "image": "quay.sys.acme.com/dxs/skyline-generic-join-action:latest",
+          "kind": "docker",
+          "input_topic":"sl_bensvcsrcprodt_bensvcctgryxref",
+          "output_topic":"sl_bensvcsrcprodt_bensvcctgryxref_benctgry",
+          "error_topic": "skyline_bd_err",
+          "key_columns": "none",
+          "environment":[
+            {"name": "PRINCIPAL", "value": "svtdxshad2p"},
+            {"name": "DOMAIN", "value": "SILVER.COM"},
+            {"name": "ENV", "value": "int"},
+            {"name": "KVNO", "value": "1"},
+            {"name": "KERBEROS_PASS", "value": "Spr1NG18#Spr1NG18#Spr1NG"},
+            {"name": "CONFIG_RAW_GIT_FILEPATH", "value": "http://git.sys.acme.com/dxs/coverage-and-benefits/join-configs/blob/develop/benefitdetails/svcCtgry_xref_benCtgry.conf"}
+          ]
+        }
+    ]
+  }
+}
+

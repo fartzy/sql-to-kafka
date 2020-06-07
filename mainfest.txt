@@ -1,0 +1,26 @@
+{
+  "pipeline": {
+    "name": "Digital Experience - Medical Accumulators",
+    "author": "MOA Team 1",
+    "description": "MOA Team 1 Generic Join Action",
+    "actions": [
+     {
+        "name": "skyline-generic-join-action",
+        "image": "quay.sys.acme.com/moa/join-action-test:latest",
+        "kind": "docker",
+        "input": "",
+        "output": "",
+        "error_topic": "skyline_ma_err",
+        "key_columns": "",
+        "environment":[
+          {"name": "PRINCIPAL", "value": "svtdxshad2p"},
+          {"name": "DOMAIN", "value": "SILVER.COM"},
+          {"name": "ENV", "value": "int"},
+          {"name": "KVNO", "value": "1"},
+          {"name": "JSON_FLAG", "value": "true"},
+          {"name": "KERBEROS_PASS", "value": ""}
+        ]
+      }
+    ]
+  }
+}

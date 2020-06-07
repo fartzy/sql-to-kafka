@@ -1,0 +1,47 @@
+kafka {
+  app.name = "GenericJoinAction"
+  connection {
+    zk.quorum = "cilhdkfd0304.sys.acme.com:2181,cilhdkfd0305.sys.acme.com:2181,cilhdkfd0306.sys.acme.com:2181"
+    consumer.group = ""
+    security.protocol.config = "PLAINTEXT"
+  }
+  writer {
+    producer {
+      bootstrap.servers = ${kafka.connection.zk.quorum}
+      key.serializer = "org.apache.kafka.common.serialization.StringSerializer",
+      value.serializer = "org.apache.kafka.common.serialization.ByteArraySerializer"
+    }
+  }
+  reader {
+    consumer {
+      bootstrap.servers = ${kafka.connection.zk.quorum}
+      acks = "all"
+      key.deserializer = "org.apache.kafka.common.serialization.StringDeserializer"
+      value.deserializer = "org.apache.kafka.common.serialization.ByteArrayDeserializer"
+    }
+    pollTimeout = 100
+  }
+  streaming {
+    num.stream.threads = "5"
+    auto.offset.reset = "earliest"
+    local.state.dir.location = "/opt/skyline/kafka-streams"
+  }
+}
+
+joinSteps: [
+  {
+    join.type = "innerJoin"
+    topic.left = "sl_idm_cust_elig_cvrg"
+    topic.right = "sl_idm_clnt_plan_yr"
+    topic.rekeyed = "order_customer_joined_rekeyed"
+    topic.out = "sl_cust_elig_cvrg_clnt_plan_yr_joined"
+    join.out=["SUBSC_ENTPR_CUST_SRC_ID", "ENTPR_CUST_SRC_CD", "ENTPR_CUST_SRC_ID", "PRODT_GRP_TYP_CD", "ELIG_EFF_DT", "ELIG_CAN_DT", "PLAN_YR_BEGIN_DT", "PLAN_YR_END_DT"]
+    join.outTypes=["string", "string", "string", "string", "string", "string", "string", "string"]
+    rekey.flag = "true"
+    join.lfields=["SUBSC_ENTPR_CUST_SRC_ID", "ENTPR_CUST_SRC_CD", "ENTPR_CUST_SRC_ID", "PRODT_GRP_TYP_CD", "ELIG_EFF_DT", "ELIG_CAN_DT"]
+    join.rfields=["PLAN_YR_BEGIN_DT", "PLAN_YR_END_DT"]
+    join.outTypes=["string", "string", "string", "string", "string", "string", "string", "string"]
+    rekey.lcolumns = ["CLNT_ACCT_NUM", "CLNT_CIF_SRC_CD", "ELIG_BEN_CLS_NUM", "ELIG_BEN_PLAN_VRTN_ID", "PRODT_GRP_TYP_CD"]
+    rekey.rcolumns = ["CLNT_ACCT_NUM", "CLNT_CIF_SRC_CD", "BEN_CLS_NUM", "BEN_PLAN_VRTN_ID", "PRODT_GRP_TYP_CD"]
+  }
+]

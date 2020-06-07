@@ -1,0 +1,9 @@
+{
+    "name": "Payment",
+    "type": "record",
+    "fields": [
+        {"name": "TransactionId", "type": "string" },
+        {"name": "Id", "type": "int" },
+        {"name": "Amount", "type": "float" }
+     ]
+}

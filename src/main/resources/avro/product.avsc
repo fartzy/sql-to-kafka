@@ -1,0 +1,12 @@
+{
+    "name": "Product",
+    "type": "record",
+    "fields": [
+        {"name": "Id", "type": "int" },
+        {"name": "ProductName", "type": "string" },
+        {"name": "SupplierId", "type": "int" },
+        {"name": "UnitPrice", "type": "float" },
+        {"name": "Package", "type": "string" },
+        {"name": "IsDiscontinued", "type": "string" }
+     ]
+}

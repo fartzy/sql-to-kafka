@@ -1,0 +1,14 @@
+{"namespace": "accenture.com",
+   "type": "record",
+ 	"name": "elig_cvrg_clnt_plan_yr",
+ 	"fields": [
+         {"name": "subsc_entpr_cust_src_id", "type": "string" },
+         {"name": "entpr_cust_src_cd", "type": "string" },
+         {"name": "entpr_cust_src_id", "type": "string" },
+         {"name": "prodt_grp_typ_cd", "type": "string" },
+         {"name": "plan_yr_begin_dt", "type": "string" },
+         {"name": "plan_yr_end_dt", "type": "string" },
+         {"name": "elig_eff_dt", "type": "string" },
+         {"name": "elig_can_dt", "type": "string" }
+     ]
+ }

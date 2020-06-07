@@ -1,0 +1,61 @@
+kafka {
+  app.name = "CoverageSummary"
+  connection {
+    zk.quorum = "cilhdkfd0304.sys.acme.com:2181,cilhdkfd0305.sys.acme.com:2181,cilhdkfd0306.sys.acme.com:2181"
+    bootstrap.servers = "cilhdkfs0301.sys.acme.com:9095,cilhdkfs0302.sys.acme.com:9095,cilhdkfs0303.sys.acme.com:9095"
+    consumer.group = ""
+    security.protocol.config = "PLAINTEXT"
+  }
+  writer {
+    producer {
+      bootstrap.servers = ${kafka.connection.zk.quorum}
+      key.serializer = "org.apache.kafka.common.serialization.StringSerializer",
+      value.serializer = "org.apache.kafka.common.serialization.ByteArraySerializer"
+    }
+  }
+  reader {
+    consumer {
+      bootstrap.servers = ${kafka.connection.zk.quorum}
+      acks = "all"
+      key.deserializer = "org.apache.kafka.common.serialization.StringDeserializer"
+      value.deserializer = "org.apache.kafka.common.serialization.ByteArrayDeserializer"
+    }
+    pollTimeout = 100
+  }
+  streaming {
+    num.stream.threads = "5"
+    auto.offset.reset = "earliest"
+    local.state.dir.location = "/opt/skyline/kafka-streams"
+  }
+}
+
+joinSteps: [
+  {
+    join.type = "innerJoin"
+    topic.left = "json-orders"
+    topic.right = "json-customers"
+    topic.out = "json-order-customer"
+    topic.filter = "json-out-filtered"
+    postfilter.flag = "true"
+    join.outputfields=["Id", "OrderDate", "OrderNumber","FirstName", "LastName", "BirthDate"]
+    rekey.lcolumns = ["CustomerId"]
+    rekey.rcolumns = ["Id"]
+    postjoin.filter = ["TYPE = BETWEEN_DATE", "ARG = right.BirthDate", "BEGIN = left.OrderDate", "END = left.OrderDate"]
+  }
+]
+
+groupBySteps: [
+  {
+    topic.in = "json-orders"
+    topic.out = "groupby-orders"
+    groupBy.columns = ["OrderDate"]
+  }
+]
+
+filterSteps: [
+  {
+    topic.in = "json-orders"
+    topic.out = "filtered-orders"
+    filter.column = ["OrderDate"]
+  }
+]

@@ -1,0 +1,13 @@
+{
+	"namespace": "accenture.avro",
+    "name": "Customer",
+    "type": "record",
+    "fields": [
+        {"name": "Id", "type": "int" },
+        {"name": "FirstName", "type": "string" },
+        {"name": "LastName", "type": "string" },
+        {"name": "City", "type": "string" },
+        {"name": "Country", "type": "string" },
+        {"name": "Phone", "type": "string" }
+     ]
+}
