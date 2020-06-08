@@ -1,5 +1,4 @@
 #!/bin/bash
-# find_and_replace.sh
 
 echo "Find and replace in current directory!"
 echo "File pattern to look for? (eg '*.txt')"
